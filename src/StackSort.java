@@ -84,11 +84,59 @@ public class StackSort {
     //step 2 and 3
     VectorStack<Integer> upperValues=new VectorStack<Integer>();
     VectorStack<Integer> lowerValues=new VectorStack<Integer>();
-    // step 4
-    for(int i=0;i<data.length;i++)
-    	upperValues.push(data[i]);
-    for(int i=0;i<data.length;i++)
-    	result[i]=upperValues.pop();
+    // step 4 and 6
+    int max=0,min=0;
+    for( int i = 0; i < data.length; i++)
+    {
+    	if(data[i] > data[max]) 	max = i;
+    	if(data[i] < data[min]) 	min = i;
+    }
+    lowerValues.push(data[min]);                        //Initially place min value in lowerValue Stack.
+    upperValues.push(data[max]);						//Initially place max value in upperValue Stack.
+
+    for( int i = 0; i < data.length; i++ )
+    {
+    	if( i == max || i == min)
+    		continue;
+    	
+    	if( lowerValues.peek()<data[i]&&!lowerValues.isEmpty()&&upperValues.peek()>data[i]&&upperValues.isEmpty() )									// condition for inserting in lowerValues Stack.
+    	{
+    		int j = 0;
+    		while(lowerValues.peek() > data[i]  && !lowerValues.isEmpty())
+    		{
+    			upperValues.push(lowerValues.pop());
+    			j++;
+    		}
+    		lowerValues.push(data[i]);					//places new value i.e data[i] in lowerValue Stack at appropriate position.
+    		while(j != 0)
+    		{
+    			lowerValues.push(upperValues.pop());
+    			j--;
+    		}
+    		
+    	}
+    	else												// condition for inserting in upperValues Stack.
+    	{
+    		int j = 0;
+    		while(upperValues.peek() < data[i]  && !upperValues.isEmpty())
+    		{
+    			lowerValues.push(upperValues.pop());
+    			j++;
+    		}
+    		upperValues.push(data[i]);				//places new value i.e data[i] in upperValue Stack at appropriate position.
+    		while(j != 0)
+    		{
+    			upperValues.push(lowerValues.pop());
+    			j--;
+    		}
+    	}
+    }
+
+    // Step 5
+    for( int i = 0; i < data.length; i++)
+    	result[i] = upperValues.pop();			
+
+
         return result;
 
     }
