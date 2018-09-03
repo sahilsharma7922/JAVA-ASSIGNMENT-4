@@ -81,6 +81,9 @@ public class StackSort {
     int result[] = new int[data.length];
     if(data.length==0)
     	return result;
+    //step 2
+    VectorStack<Integer> upperValues=new VectorStack<Integer>();
+    VectorStack<Integer> lowerValues=new VectorStack<Integer>();
     		
 
         return result;
