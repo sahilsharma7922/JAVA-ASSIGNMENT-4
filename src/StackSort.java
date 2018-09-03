@@ -93,12 +93,12 @@ public class StackSort {
     }
     lowerValues.push(data[min]);                        //Initially place min value in lowerValue Stack.
     upperValues.push(data[max]);						//Initially place max value in upperValue Stack.
-
     for( int i = 0; i < data.length; i++ )
     {
+    	// as min and max elements are already included, it checks so that they are not included twice
     	if( i == max || i == min)
     		continue;
-    	
+    	// it checks whether data element is more than top element of upperValues and less than top element of upperValues
     	if( lowerValues.peek()<data[i]&&!lowerValues.isEmpty()&&upperValues.peek()>data[i]&&upperValues.isEmpty() )									// condition for inserting in lowerValues Stack.
     	{
     		int j = 0;
@@ -131,15 +131,14 @@ public class StackSort {
     		}
     	}
     }
-
+    // Step 7
+    while( !lowerValues.isEmpty() )					//pop all reverse sorted values from lowerStack into upperValue Stack.
+    	upperValues.push(lowerValues.pop());
     // Step 5
     for( int i = 0; i < data.length; i++)
     	result[i] = upperValues.pop();			
-
-
         return result;
-
-    }
+}
 
     /**
      * Load an array with data values
