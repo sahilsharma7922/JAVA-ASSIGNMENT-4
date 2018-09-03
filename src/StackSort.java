@@ -87,6 +87,8 @@ public class StackSort {
     // step 4
     for(int i=0;i<data.length;i++)
     	upperValues.push(data[i]);
+    for(int i=0;i<data.length;i++)
+    	result[i]=upperValues.pop();
         return result;
 
     }
